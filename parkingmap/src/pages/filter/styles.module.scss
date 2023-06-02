@@ -1,0 +1,85 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+.filterbox{
+    width:85vw;
+    height : 40vh;
+    background-color: white;
+    border-radius: 10px;
+    
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.25);
+    margin-top : 40px;
+}
+
+.optiontitle{
+    width:85vw;
+    height : 40vh;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 4px rgba(0,0,0,0.25);
+    
+    //margin-top : 40px;
+
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 22px;
+
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.button{
+    
+    background-color:#DADADA;
+    font-weight: 400;
+    color: black;
+    font-size: 0.85em;
+    width: 56px;
+    height: 22px;
+    line-height: 22px;
+    margin-right: 5px;
+    border-radius: 10px;
+    text-align: center;
+    
+    
+
+}
+
+.slider{
+    width: 244px;
+    height: 0px;
+    border: 3px solid #D8D8D8;
+    transform: rotate(0.23deg);
+    align-items: center;
+
+}
+
+.sliderButton{
+    width: 20px;
+    height: 20px;
+    background: #775EEE;
+    border-radius: 50px;
+    //cursor:pointer;
+}
+
+.applybutton{
+
+    gap: 10px;
+    text-align: center;
+    line-height: 36px;
+    background: #775EEE;
+    color:white;
+    border-radius: 10px;
+    width: 86%;
+    margin-left: 7%;
+    height: 36px;
+
+}
