@@ -11,6 +11,16 @@ function ParkingInfo() {
             <span style={{fontSize: 25,fontWeight:400, color: '#775EEE'}}>홍대입구역</span>
             의 주차정보 입니다</div>
             <Detail/>
+
+            <div className={styles.mapContainer}>
+                    {/* <KakaoMap/> */}
+            </div>
+
+            {/* <div style={{marginTop:350,marginBottom:20,height:"20%",fontSize:16}}>
+                <span style={{fontSize:16,fontWeight:400,color:'#775EEE'}}>홍대입구역</span>의 평균 주차 요금은 <span style={{fontSize: 14,fontWeight:400, color: '#775EEE'}}>2000원</span>입니다
+            </div> */}
+        
+        
         
         
             

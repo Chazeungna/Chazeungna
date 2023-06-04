@@ -8,9 +8,22 @@ function Detail() {
         <div style={{marginTop:350,marginBottom:20,height:"20%",fontSize:16}}>
             <span style={{fontSize:16,fontWeight:400,color:'#775EEE'}}>홍대입구역</span>의 평균 주차 요금은 <span style={{fontSize: 14,fontWeight:400, color: '#775EEE'}}>2000원</span>입니다
         </div>
-        
-        <div className={styles.mapbox}></div>    
 
+        <div>
+            <div className={styles.latestInfoBox}>
+                <div style={{marginTop:5,fontSize:16, fontWeight:400,color:'black'}}>주차 현황</div>
+                <div style={{marginTop:5,fontSize:20, fontWeight:600,color:'#775EEE'}}>50 / 70</div>
+                
+                <div className={styles.updateContainer}>
+                    <div style={{marginTop:7,fontSize:12,fontWeight:400,color:'#717171'}}>2023.06.04 21:13</div>
+                    <div className={styles.icons}>
+                        <img src="assets/icons/refresh.png" width="16px" height="16px" style={{marginLeft:3}}></img>
+                    </div>
+                     
+                </div>
+                
+            </div>
+        </div>
         
         <div className={styles.infobox}>
             <div className={styles.namecontainer}>
@@ -60,16 +73,17 @@ function Detail() {
 
                 <div className={styles.latestinfo}>
                     <div style={{marginTop:10,marginBottom:10,marginLeft:5,height:14,fontSize:14}}>
-                            <span style = {{fontSize:14,fontWeight:400,color:'black',marginLeft:15}}>현재 주차 대수 / 총 주차 대수</span>
+                            <span style = {{fontSize:14,fontWeight:400,color:'black',marginLeft:15,textDecoration:'underline'}}>현재 주차 현황 보기</span>
                     </div>
+                
                 </div> 
 
-                <div className={styles.icons}>
+                {/* <div className={styles.icons}>
                     <img src="assets/icons/refresh.png" width="16px" height="16px" style={{marginLeft:0}}></img>
-                </div>
+                </div> */}
                      
             </div>
-            
+
             <div className={styles.line}></div>
             <div className={styles.categorybox}>
                 <span style={{fontSize:12,fontWeight:400,color:'#775EEE'}}>운영정보</span>
@@ -87,6 +101,8 @@ function Detail() {
 
             
         </div>
+
+        
 
         <div className={styles.infobox}>
             <div className={styles.namecontainer}>
