@@ -1,0 +1,38 @@
+.icons{
+
+    width: 18px;
+    height: 18px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 5px 0px 0px 0px;
+}
+
+
+.latestInfoBox{
+    width: 130px;
+    height: 70px;
+    position : absolute;
+    z-index: 99;
+    top: 74vh;
+    left: 53vw;
+    background: #F9F9F9;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.updateContainer{
+    background: #F5F5F5;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}

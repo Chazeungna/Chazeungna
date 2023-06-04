@@ -3,7 +3,7 @@ import { Map, MarkerClusterer, MapMarker, CustomOverlayMap } from 'react-kakao-m
 import AreaInfoOverlay from './\bAreaInfoOverlay';
 import clusterPositionsData from './clusterPositionsData.json';
 
-function KakaoMap() {
+function KakaoMap(props: any) {
     const [isOpen, setIsOpen] = useState(false);
 
     const onClickCluster = () => {
@@ -14,7 +14,7 @@ function KakaoMap() {
         <>
             <Map
                 center={{ lat: 37.332495, lng: 127.112503 }}
-                style={{ width: '93vw', height: '70vh' , borderRadius:20}}
+                style={{ width: props.width, height: props.height , borderRadius:20}}
                 level={8}
             >
                 <MarkerClusterer averageCenter={true} minLevel={5} onClusterclick={onClickCluster}>
