@@ -78,8 +78,8 @@ app.get("/parkingdetail/average", async (req, res) => {
   }
 });
 app.get("/filterinfo", async (req, res) => {
-  const query = `select min(ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, 0)) as min, 
-  max(ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, 0)) as max
+  const query = `select min(ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge)) as min, 
+  max(ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge)) as max
   from spot_parking where free = 0 or free =1 `;
   try {
     const result = await connection.promise().query(query);
@@ -101,8 +101,7 @@ app.get("/filterinfo/info?", async (req, res) => {
     day == 0 ? `weekday_oper = 1` : `(saturday_oper = 1 or holiday_oper = 1)`
   } and ${
     ev == 1 ? "parking_name in (select parking_name from ev_charger) and" : ""
-  } basic_charge + ceil((60 - basic_time) 
-  / additional_unit_time) * additional_charge between ${min} and ${max} and (free = 0 or free = 1); `;
+  }ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) between ${min} and ${max} and (free = 0 or free = 1); `;
   try {
     const result = await connection.promise().query(query);
     res.json(result[0]);
@@ -130,7 +129,7 @@ const callopenApi = async (parkingAddressInfo) => {
 
 app.get("/currentinfo/:address/:name", async (req, res) => {
   const address = req.params.address;
-  const parkingName = req.params.address;
+  const parkingName = req.params.name;
   const partialResult = await callopenApi(address);
   const createViewQuery = `CREATE OR REPLACE VIEW cur_parking_db AS
   SELECT *
@@ -147,14 +146,16 @@ app.get("/currentinfo/:address/:name", async (req, res) => {
   const selectQuery = `with selected_parking as(
     select *
       from spot_parking
-      where parking_name = ${parkingName}
+      where parking_name = '${parkingName}'
   )
-  select
+  
+  select 
     case
-      when (sum(cur_parking) >= 0) then cur_parking
+      when (sum(cur_parking) >= 0) then sum(cur_parking)
       else '정보 미제공'
-    end as cur_parking
-  from
+    end as cur_parking,
+    parking.capacity
+  from 
     (
       select parking_name, max(cur_parking) as cur_parking, cur_parking_time
           from cur_parking_db
@@ -168,7 +169,7 @@ app.get("/currentinfo/:address/:name", async (req, res) => {
   try {
     await connection.promise().query(createViewQuery);
     const result = await connection.promise().query(selectQuery);
-    res.json(result);
+    res.json(result[0]);
   } catch (err) {
     console.error(err);
   }
