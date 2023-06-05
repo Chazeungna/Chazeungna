@@ -1,0 +1,53 @@
+.title{
+    color:rgb(134,108,237);
+    font-weight: 700;
+    font-size: 1.7em;
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.content{
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-left: 5%;
+}
+.search{
+    width: 100vw;
+    height: 4.5vh;
+    margin: 20px;
+    padding-left: 50px;
+    font-size: 1em;
+    text-align: 20px;
+    border: 1px solid;
+    border-color: #EEEEEE;
+    border-radius: 20px;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px rgba(0,0,0,0.2);
+}
+.container{
+    width: 100vw;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+.imageContainer{
+    width: 100vw;
+    height: 10vh;
+    position: relative;
+    display: flex;
+}
+.image{
+    width: 2.75vh;
+    height: 2.75vh;
+    position: absolute;
+    top: 3.7vh;
+    left: 35px;
+    z-index: 99;
+}
+.mapContainer{
+    background-color:rgb(185,171,245);
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

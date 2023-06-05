@@ -1,0 +1,24 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+// .mapContainer{
+//     position: absolute;
+//     top: 70px;
+//     border-radius: 8.3vh;
+//     background-color: #f5f5f5;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+.filterbutton{
+    position: absolute;
+    width: 67px;
+    height: 34px;
+    left: 30px;
+    top: 460px;
+}
