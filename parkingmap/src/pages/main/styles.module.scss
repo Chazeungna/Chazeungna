@@ -50,4 +50,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position:relative;
+}
+.onMap{
+    position:absolute;
+    z-index: 99;
+    width: 30%;
+    background-color: white;
 }

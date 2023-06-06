@@ -3,9 +3,11 @@ import KakaoMap from '../../components/KakaoMap';
 import styles from './styles.module.scss';
 import SearchResult from '../../components/searchResult';
 import axios from "axios";
+import debounce from 'lodash/debounce';
 import { server_debug } from '../../api';
 function Main() {
     const [data, setData] = useState([]);
+    const [inputValue, setInputValue] = useState("")
     const fetchSpotList = async () => {
         await axios
           .get(`${server_debug}/spot`)
@@ -31,13 +33,14 @@ function Main() {
                 </div>
                 <div className={styles.imageContainer}>
                     <img src='/assets/icons/search.png' className={styles.image}/>
-                    <input className={styles.search} placeholder='장소를 입력하세요.' onClick={()=>setOpensearch(true)}/>
+                    <input className={styles.search} placeholder='장소를 입력하세요.' onChange={(e)=>setInputValue(e.target.value)} onClick={()=>setOpensearch(true)}/>
                     {
                         openSearch ? <SearchResult data={data} setOpen={setOpensearch}/> : null
                     }
                 </div>
                 <div className={styles.mapContainer}>
-                    <KakaoMap width={"90vw"} height={"73vh"}/>
+                    <KakaoMap version={1}/>
+                    <div className={styles.onMap}>Hi</div>
                 </div>
             </div>
 

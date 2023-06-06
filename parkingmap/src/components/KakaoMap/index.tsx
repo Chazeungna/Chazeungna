@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MapComponent from './map';
+import SmallMapComponent from './smallMap';
 function KakaoMap(props: any) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -9,7 +10,7 @@ function KakaoMap(props: any) {
 
     return (
         <>
-            <MapComponent/>
+            {props.version ===1 ? <MapComponent/>: <SmallMapComponent/>}
         </>
     );
 }
