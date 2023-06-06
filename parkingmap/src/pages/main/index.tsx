@@ -1,7 +1,25 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import KakaoMap from '../../components/KakaoMap';
 import styles from './styles.module.scss';
+import SearchResult from '../../components/searchResult';
+import axios from "axios";
+import { server_debug } from '../../api';
 function Main() {
+    const [data, setData] = useState([]);
+    const fetchSpotList = async () => {
+        await axios
+          .get(`${server_debug}/spot`)
+          .then(async (res) => {
+            if (res.status === 200) {
+            setData(res.data);
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+    const [openSearch, setOpensearch] = useState(false);
+    useEffect(()=>{fetchSpotList()},[])
     return (
         <div>
             <div className={styles.container}>
@@ -13,7 +31,10 @@ function Main() {
                 </div>
                 <div className={styles.imageContainer}>
                     <img src='/assets/icons/search.png' className={styles.image}/>
-                    <input className={styles.search} placeholder='장소를 입력하세요.'/>
+                    <input className={styles.search} placeholder='장소를 입력하세요.' onClick={()=>setOpensearch(true)}/>
+                    {
+                        openSearch ? <SearchResult data={data}/> : null
+                    }
                 </div>
                 <div className={styles.mapContainer}>
                     <KakaoMap width={"90vw"} height={"73vh"}/>

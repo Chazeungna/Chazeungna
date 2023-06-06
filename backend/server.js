@@ -2,6 +2,13 @@ const express = require("express");
 const app = express();
 
 const port = process.env.PORT || 8080;
+const cors = require("cors");
+let corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 require("dotenv").config();
 const mysql = require("mysql2");
@@ -37,6 +44,7 @@ app.get("/spot", async (req, res) => {
     const result = await connection.promise().query(query);
     res.json(result[0]);
   } catch (err) {
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
     console.error(err);
   }
 });
@@ -63,6 +71,7 @@ app.get(`/parkingspot/:name`, async (req, res) => {
     const result = await connection.promise().query(selectQuery);
     res.json(result[0]);
   } catch (err) {
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
     console.error(err);
   }
 });
@@ -72,9 +81,11 @@ app.get("/parkingdetail/average", async (req, res) => {
   where free = 0`;
   try {
     const result = await connection.promise().query(query);
+
     res.json(result[0]);
   } catch (err) {
     console.error(err);
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
   }
 });
 app.get("/filterinfo", async (req, res) => {
@@ -86,6 +97,7 @@ app.get("/filterinfo", async (req, res) => {
     res.json(result[0]);
   } catch (err) {
     console.error(err);
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
   }
 });
 app.get("/filterinfo/info?", async (req, res) => {
@@ -107,6 +119,7 @@ app.get("/filterinfo/info?", async (req, res) => {
     res.json(result[0]);
   } catch (err) {
     console.error(err);
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
   }
 });
 
@@ -172,6 +185,7 @@ app.get("/currentinfo/:address/:name", async (req, res) => {
     res.json(result[0]);
   } catch (err) {
     console.error(err);
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
   }
 });
 app.get("/detail/:name", async (req, res) => {
@@ -231,5 +245,6 @@ app.get("/detail/:name", async (req, res) => {
     res.json(result[0]);
   } catch (err) {
     console.error(err);
+    res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
   }
 });
