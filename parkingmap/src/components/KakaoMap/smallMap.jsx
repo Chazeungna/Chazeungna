@@ -38,7 +38,6 @@ export default function SmallMapComponent() {
           title: el.parking_name,
         });
         window.kakao.maps.event.addListener(marker, "click", () => {
-          setSelectedSpot(el);
           console.log(el)
         });
         

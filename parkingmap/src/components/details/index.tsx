@@ -26,7 +26,7 @@ function Detail() {
             </div>
             <div className={styles.latestContainer}>
                 <img src="assets/icons/car.png" width="16px" height="16px" style={{marginLeft:20}}></img>
-                <div style = {{fontSize:14,fontWeight:400,marginTop:10,marginBottom:10,color:'black',marginLeft:10,textDecoration:'underline',
+                <div style = {{fontSize:14,fontWeight:400,marginTop:15,marginBottom:15,color:'black',marginLeft:10,textDecoration:'underline',
                 position:'relative'}} onClick = {
                     ()=>{setCurrent(!current)}
                 }>현재 주차 현황 보기</div>

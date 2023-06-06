@@ -40,7 +40,6 @@ function Main() {
                 </div>
                 <div className={styles.mapContainer}>
                     <KakaoMap version={1}/>
-                    <div className={styles.onMap}>Hi</div>
                 </div>
             </div>
 
