@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { server_debug } from "../../api";
 import {useRecoilState} from 'recoil';
+import { useNavigate } from "react-router-dom";
 import selectedPin from "../../recoil/selectedPin";
 export default function MapComponent() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   const [selectedSpot, setSelectedSpot] = useRecoilState(selectedPin);
   const fetchSpotList = async () => {
     try {
@@ -38,6 +40,7 @@ export default function MapComponent() {
         });
         window.kakao.maps.event.addListener(marker, "click", () => {
           setSelectedSpot(el);
+          navigate('/info')
           console.log(el)
         });
         const content = `<div style="background: #fff; padding: 10px; font-size:15px; text-align:center; width:130px;

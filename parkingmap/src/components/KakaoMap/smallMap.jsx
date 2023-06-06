@@ -3,9 +3,11 @@ import axios from "axios";
 import { server_debug } from "../../api";
 import {useRecoilState} from 'recoil';
 import selectedPin from "../../recoil/selectedPin";
+import selectedPark from "../../recoil/selectedPark";
 export default function SmallMapComponent() {
   const [data, setData] = useState([]);
   const [selectedSpot, setSelectedSpot] = useRecoilState(selectedPin);
+  const [selectedParking,setSelectedPark] = useRecoilState(selectedPark);
   const fetchSpotList = async () => {
     try {
       const response = await axios.get(`${server_debug}/parkingspot/${selectedSpot.spot_name}`);
@@ -38,8 +40,8 @@ export default function SmallMapComponent() {
           title: el.parking_name,
         });
         window.kakao.maps.event.addListener(marker, "click", () => {
-          console.log(el)
-        });
+          setSelectedPark(el.parking_name);
+          });
         const content = `<div style="background: #fff; padding: 10px; font-size:15px; text-align:center; width:130px;
         ">
         ${el.parking_name}
