@@ -31,7 +31,23 @@ function ParkingInfo() {
                 <img src="assets/icons/filter.png" width={"67px"} height={"34px"}></img>
             </div>
         {selectedParking !==null ? <Detail/> : null}
-
+        <table className="user-table">
+        <thead>
+                <tr>
+                    <th>주차장명</th>
+                    <th>거리</th>
+                    <th>가격(시간당)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style={{textDecoration:'underline'}}>차증나 주차장</td>
+                        <td>520m</td>
+                        <td>2000원</td>
+                        {/* <td>0원 <img src='/assets/icons/down.png' className={styles.image}/></td> */}
+                    </tr>
+                </tbody>
+            </table>
     </div>);
 }
 export default ParkingInfo;

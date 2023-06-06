@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import CurrentInfo from './current.tsx';
+import selectedPark from '../../recoil/selectedPark';
+import {useRecoilState } from 'recoil';
 function Detail() {
     const title = [['노상','노외'], ['유로','무료'],['EV','NEV']]
     const [manage, setManage] = useState(true);
     const [current, setCurrent] = useState(false);
+    const [selectedParking, setSelectedParking] = useRecoilState(selectedPark);
     return (
     <div className={styles.container}>
         <div className={styles.infobox}>
+            <div style={{display:'flex',justifyContent:'space-between'}}>
                 <div style={{fontSize:'24px', fontWeight:'600', margin:20}}>
                     주차장명 
                 </div>
+                <div style={{fontSize:'17px', fontWeight:'400', margin:20}} onClick={()=>setSelectedParking(null)}>닫기</div>
+            </div>
             <div className={styles.keywordbox}>
                 <div className={styles.keywordCircle}>노외</div>
                 <div className={styles.keywordCircle}>유료</div>
