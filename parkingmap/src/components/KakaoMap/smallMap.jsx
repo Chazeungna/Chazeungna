@@ -40,11 +40,30 @@ export default function SmallMapComponent() {
         window.kakao.maps.event.addListener(marker, "click", () => {
           console.log(el)
         });
-        
+        const content = `<div style="background: #fff; padding: 10px; font-size:15px; text-align:center; width:130px;
+        ">
+        ${el.parking_name}
+      </div>`;
+
+        var infowindow = new window.kakao.maps.InfoWindow({
+          content: content // 인포윈도우에 표시할 내용
       });
+        window.kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        window.kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+      });
+            
     }
   };
-
+  function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+function makeOutListener(infowindow) {
+  return function() {
+      infowindow.close();
+  };
+}
   useEffect(() => {
     fetchSpotList();
   }, []);
