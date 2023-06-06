@@ -33,7 +33,7 @@ function Main() {
                     <img src='/assets/icons/search.png' className={styles.image}/>
                     <input className={styles.search} placeholder='장소를 입력하세요.' onClick={()=>setOpensearch(true)}/>
                     {
-                        openSearch ? <SearchResult data={data}/> : null
+                        openSearch ? <SearchResult data={data} setOpen={setOpensearch}/> : null
                     }
                 </div>
                 <div className={styles.mapContainer}>
