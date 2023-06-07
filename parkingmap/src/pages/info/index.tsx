@@ -10,6 +10,7 @@ import selectedPark from '../../recoil/selectedPark';
 import { server_debug } from '../../api';
 import parkingData from '../../recoil/data';
 import axios from 'axios';
+import FilteringBox from '../../components/filter';
 interface Parking { 
     parking_name: string;
     latitude: string;
@@ -42,6 +43,7 @@ function ParkingInfo() {
       };
     useEffect(()=>{fetchSpotList();fetchSpotAverage()},[])
     const [data, setData] = useRecoilState<Parking[] | null>(parkingData)
+    const [filter, setfilter] = useState(false)
     const navigate = useNavigate();
     const [average,setAverage] = useState(0)
     const selectedSpot= useRecoilValue(selectedPin) 
@@ -56,9 +58,10 @@ function ParkingInfo() {
             <div style={{margin:"15px 0px"}}><span style={{fontSize:16,fontWeight:400,color:'#775EEE'}}>{selectedSpot.spot_name}
             </span>의 평균 주차 요금은 <span style={{fontSize: 16,fontWeight:400, color: '#775EEE'}}>{average}원</span>입니다.</div>
             
-            <div className={styles.filterbutton} onClick={()=>{setSelectedParking(null);navigate('/filter')}}>
+            <div className={styles.filterbutton} onClick={()=>{setSelectedParking(null);setfilter(!filter)}}>
                 <img src="assets/icons/filter.png" width={"67px"} height={"34px"}></img>
             </div>
+        {filter ? <FilteringBox setfilter={setfilter}/>:null}
         {selectedParking !==null ? <Detail/> :         
         <table className="user-table">
         <thead>

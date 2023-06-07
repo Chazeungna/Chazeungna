@@ -12,7 +12,7 @@ interface Parking {
     charge: string;
     distance: number;
   }
-const FilteringBox = () => {
+const FilteringBox = (props:any) => {
   const [MIN, setMIN] = useState<number | null>(null);
   const [MAX, setMAX] = useState<number | null>(null);
   const [sliderRendered, setSliderRendered] = useState(false);
@@ -68,7 +68,8 @@ const FilteringBox = () => {
         alert("반경 정보를 선택하세요.");
     } 
     if (day!==-1 && distance!==null){
-        fetchFilteringResult(day, ev, min, max, 1000*distance)
+        fetchFilteringResult(day, ev, min, max, 1000*distance);
+        props.setfilter(false);
     }
 
   }
