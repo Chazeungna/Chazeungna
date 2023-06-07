@@ -51,9 +51,12 @@ function ParkingInfo() {
     return (
         
     <div className={styles.container}>
-            <div style={{marginTop: 30, marginBottom:20,height:"20%", fontSize:17}}>
-            <span style={{fontSize: 25,fontWeight:400, color: '#775EEE'}}>{selectedSpot.spot_name}</span>
-        의 주차정보 입니다</div>
+            <div style={{display:'flex',}}>
+              <img src='/assets/icons/home.png' width="30px" height="30px" style={{position:'absolute', top:28, left:40}} onClick={()=>navigate('/')}/>
+              <div style={{marginTop: 30, marginBottom:20,height:"20%", fontSize:17}}>
+              <span style={{fontSize: 25,fontWeight:400, color: '#775EEE'}}>{selectedSpot.spot_name}</span>
+              의 주차정보 입니다</div>
+            </div>
             <KakaoMap version={0}/>
             <div style={{margin:"15px 0px"}}><span style={{fontSize:16,fontWeight:400,color:'#775EEE'}}>{selectedSpot.spot_name}
             </span>의 평균 주차 요금은 <span style={{fontSize: 16,fontWeight:400, color: '#775EEE'}}>{average}원</span>입니다.</div>
