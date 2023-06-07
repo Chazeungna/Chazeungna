@@ -59,7 +59,7 @@ function Detail() {
                     <div className={styles.keywordCircle}>{data.free === 1 ? '무료' : '유료'} </div>
                     {data.ev_charger_ === 1 ? <div className={styles.keywordCircle}>EV</div> : null}    
                 </div>
-                <div style = {{fontSize:14,fontWeight:400,color:'#717171', width:60, marginRight:15}}>{Math.ceil(data.distance)} m</div>  
+                <div style = {{fontSize:13,fontWeight:400,color:'#717171', width:60, marginRight:15}}>{Math.ceil(data.distance)} m</div>  
             </div>
             <div className={styles.addressContainer}>
                     <img src="assets/icons/location.png" width="16px" height="16px" style={{margin:"0 10px 0 25px"}}/>
