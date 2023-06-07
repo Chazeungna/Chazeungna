@@ -1,13 +1,20 @@
 import React,{useEffect, useState} from 'react';
 import KakaoMap from '../../components/KakaoMap';
 import styles from './styles.module.scss';
-import SearchResult from '../../components/searchResult';
 import axios from "axios";
-import debounce from 'lodash/debounce';
 import { server_debug } from '../../api';
+import selectedPin from '../../recoil/selectedPin';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+interface Data{
+    spot_name: string;
+    spot_latitude:string;
+    spot_longtitude:string;
+}
 function Main() {
-    const [data, setData] = useState([]);
-    const [inputValue, setInputValue] = useState("")
+    const [data, setData] = useState<Data[]|undefined>();
+    const navigate = useNavigate();
+    const [selectedSpot, setSelectedSpot]= useRecoilState<Data>(selectedPin) 
     const fetchSpotList = async () => {
         await axios
           .get(`${server_debug}/spot`)
@@ -20,7 +27,6 @@ function Main() {
             console.log(e);
           });
       };
-    const [openSearch, setOpensearch] = useState(false);
     useEffect(()=>{fetchSpotList()},[])
     return (
         <div>
@@ -33,10 +39,10 @@ function Main() {
                 </div>
                 <div className={styles.imageContainer}>
                     <img src='/assets/icons/search.png' className={styles.image}/>
-                    <input className={styles.search} placeholder='장소를 입력하세요.' onChange={(e)=>setInputValue(e.target.value)} onClick={()=>setOpensearch(true)}/>
-                    {
-                        openSearch ? <SearchResult data={data} setOpen={setOpensearch}/> : null
-                    }
+                    {data!==undefined && <select className={styles.search} onChange={(e:any)=>{setSelectedSpot(data[e.target.value]);navigate('/info')}}>
+                        <option value="" disabled selected>장소를 선택하세요.</option>
+                        {data.map((key:Data, index:number)=><option key={index} value={index} >{key.spot_name}</option>)}
+                    </select>}
                 </div>
                 <div className={styles.mapContainer}>
                     <KakaoMap version={1}/>
