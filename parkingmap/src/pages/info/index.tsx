@@ -9,13 +9,26 @@ import selectedPin from '../../recoil/selectedPin';
 import selectedPark from '../../recoil/selectedPark';
 import { server_debug } from '../../api';
 import axios from 'axios';
-interface Spot { 
-    spot_name: string;
-    spot_latitude: number;
-    spot_longitude: number;
+interface Parking { 
+    parking_name: string;
+    latitude: string;
+    longitude: string;
+    charge: string;
+    distance: number;
   }
   
 function ParkingInfo() {
+    const fetchSpotList = async () => {
+        try {
+          const response = await axios.get(`${server_debug}/parkingspot/${selectedSpot.spot_name}`);
+          if (response.status === 200) {
+            console.log(response.data);
+            setData(response.data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
     const fetchSpotAverage = async () => {
         try {
           const response = await axios.get(`${server_debug}/parkingdetail/average`);
@@ -26,11 +39,12 @@ function ParkingInfo() {
           console.log(error);
         }
       };
-    useEffect(()=>{fetchSpotAverage()},[])
+    useEffect(()=>{fetchSpotList();fetchSpotAverage()},[])
+    const [data, setData] = useState<Parking[]|null>(null)
     const navigate = useNavigate();
     const [average,setAverage] = useState(0)
     const selectedSpot= useRecoilValue(selectedPin) 
-    const [selectedParking, setSelectedParking]= useRecoilState(selectedPark)
+    const [selectedParking, setSelectedParking]= useRecoilState<any>(selectedPark)
     return (
         
     <div className={styles.container}>
@@ -47,6 +61,7 @@ function ParkingInfo() {
         {selectedParking !==null ? <Detail/> :         
         <table className="user-table">
         <thead>
+  
                 <tr>
                     <th>주차장명</th>
                     <th>거리</th>
@@ -54,12 +69,15 @@ function ParkingInfo() {
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style={{textDecoration:'underline'}}>차증나 주차장</td>
-                        <td>520m</td>
-                        <td>2000원</td>
-                        {/* <td>0원 <img src='/assets/icons/down.png' className={styles.image}/></td> */}
-                    </tr>
+                {data !== null
+                  ? data.map((key: Parking, index: number) => (
+                <tr key={index}>
+                    <td style={{ textDecoration: 'underline'}} onClick={()=>setSelectedParking(key.parking_name)}>{key.parking_name}</td>
+                    <td>{Math.ceil(key.distance)}m</td>
+                    <td>{key.charge}원</td>
+                </tr>
+               ))
+                : null}
                 </tbody>
             </table>}
     </div>)

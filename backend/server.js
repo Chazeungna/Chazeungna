@@ -63,7 +63,7 @@ app.get(`/parkingspot/:name`, async (req, res) => {
     NATURAL JOIN price
     WHERE distance <= 1500`;
 
-  const selectQuery = `select parking_name, latitude, longitude, free, 
+  const selectQuery = `select parking_name, latitude, longitude,distance,
   ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) as charge
   from spot_parking;`;
 

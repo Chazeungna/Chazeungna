@@ -12,7 +12,7 @@ interface curInfo {
 const CurrentInfo = (props: {address : string})=>{
     const [name, setName] = useRecoilState(selectedPark)
     const [data, setData] = useState<curInfo>()
-    const [date, setDate] = useState("데이터 불러오는 중입니다.")
+    const [date, setDate] = useState("데이터를 불러오는 중입니다.")
     const fetchCurrentInfo = async () => {
         const addressInfo =props.address.split(' ')[1]
         setDate("데이터를 불러오는 중입니다.")
