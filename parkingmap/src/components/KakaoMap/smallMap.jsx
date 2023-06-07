@@ -28,7 +28,17 @@ export default function SmallMapComponent() {
       };
 
       const map = new window.kakao.maps.Map(container, options);
-
+      const centerMarker = new window.kakao.maps.Marker({
+        map: map,
+        position: new window.kakao.maps.LatLng(selectedSpot.spot_latitude, selectedSpot.spot_longitude),
+        title: "Center",
+        image: new window.kakao.maps.MarkerImage(
+          "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+          new window.kakao.maps.Size(30, 30),
+          { offset: new window.kakao.maps.Point(15, 15) }
+        )
+      });
+  
       data.forEach((el) => {
         const marker = new window.kakao.maps.Marker({
           map: map,
