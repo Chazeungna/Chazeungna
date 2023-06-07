@@ -63,8 +63,9 @@ app.get(`/parkingspot/:name`, async (req, res) => {
     NATURAL JOIN price
     WHERE distance <= 1500`;
 
-  const selectQuery = `SELECT parking_name, latitude, longitude
-  FROM spot_parking`;
+  const selectQuery = `select parking_name, latitude, longitude, free, 
+  ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) as charge
+  from spot_parking;`;
 
   try {
     await connection.promise().query(createViewQuery);
@@ -193,39 +194,36 @@ app.get("/detail/:name", async (req, res) => {
   const query = `with selected_parking as(
     select *
       from spot_parking
-      where parking_name = "${parkingName}"
-)
+      where parking_name = '${parkingName}'
+  )
   
   select 
     parking.parking_name, 
     parking_address, 
     parking.distance, 
     case 
-      when (weekday_oper = 1) then concat('평일 운영', date_format(weekday_start, ' %h:%m'), ' ~ ', date_format(weekday_end, '%h:%m'))
+      when (weekday_oper = 1) then concat('평일 운영 : ', date_format(weekday_start, '%H:%i'), ' ~ ', date_format(weekday_end, '%H:%i'))
       else '평일 미운영'
     end as weekday_oper_info,
     case
-      when (saturday_oper = 1) then concat('토요일 운영', date_format(saturday_start, ' %h:%m'), ' ~ ', date_format(saturday_end, '%h:%m'))
+      when (saturday_oper = 1) then concat('토요일 운영 : ', date_format(saturday_start, '%H:%i'), ' ~ ', date_format(saturday_end, '%H:%i'))
       else '토요일 미운영'
     end as saturday_oper_info, 
     case
-      when (holiday_oper = 1) then concat('공휴일 운영', date_format(holiday_start, ' %h:%m'), ' ~ ', date_format(holiday_end, '%h:%m'))
+      when (holiday_oper = 1) then concat('공휴일 운영 : ', date_format(holiday_start, '%H:%i'), ' ~ ', date_format(holiday_end, '%H:%i'))
       else '공휴일 미운영'
     end as holiday_oper_info,
     oper_status,
     case
-      when (ev_charger_ = 1) then '전기차 충전소 보유'
-      else '전기차 충전소 미보유'
+      when (ev_charger_ = 1) then 1
+      else 0
     end as ev_charger_,
     case
       when (phone_no like '02-%') then phone_no
       else '정보 미제공'
     end as phone_no,
-    case 
-      when free = 0 then concat(basic_charge, '원 / ', basic_time, '분')
-          when free = 1 then '무료'
-          else '유료 / 정보 미제공'
-    end as basic_charge,
+    parking.free,
+    concat(basic_charge, '원 / ', basic_time, '분') as basic_charge,
     case 
       when free = 0 then concat(additional_charge, '원 / ', additional_unit_time, '분')
       else null

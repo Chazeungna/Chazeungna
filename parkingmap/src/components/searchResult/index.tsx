@@ -17,7 +17,7 @@ const SearchResult = (props: any) => {
           key={index}
           onClick={() => {
             setSelectedSpot(key);
-            navigate('/info', { state: key.spot_name });
+            navigate('/info');
           }}
         >
           {key.spot_name}

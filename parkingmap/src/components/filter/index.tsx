@@ -8,18 +8,31 @@ const MAX = 3000;
 const FilteringBox = ()=>{
     const [ values, setValues]= useState([MIN,MAX])
     // console.log('values: ',values)
+    const [selectedRadius, setSelectedRadius] = useState(null);
 
+    const handleRadiusSelection = (radius:any) => {
+      setSelectedRadius(radius);
+    };
+  
+    const radiusOptions = [0.5, 1, 1.5];
     return(    
         <div className={styles.container}>        
     <div className={styles.filterbox}>
-            <div>
-                <div style={{textAlign:'center',padding:15,fontSize:16,fontWeight:500}}>원하는 반경을 선택하세요</div>
-                <div className={styles.buttonContainer}>
-                    <div className={styles.button}>500m</div>
-                    <div className={styles.button}>1.0km</div>
-                    <div className={styles.button}>1.5km</div>
-                </div>
-            </div>
+    <div>
+          <div style={{ textAlign: 'center', padding: 15, fontSize: 16, fontWeight: 500 }}>원하는 반경을 선택하세요</div>
+          <div className={styles.buttonContainer}>
+            {radiusOptions.map((radius) => (
+              <div
+                key={radius}
+                className={styles.button}
+                style={{backgroundColor: selectedRadius === radius? '#775EEE':''}}
+                onClick={() => handleRadiusSelection(radius)}
+              >
+                {`${radius}km`}
+              </div>
+            ))}
+          </div>
+        </div>
 
             <div style={{marginTop:20,marginBottom:10,flexDirection:'row',display:'flex',justifyContent:'center'}}>
                 <div>

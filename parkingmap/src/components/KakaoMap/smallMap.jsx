@@ -12,7 +12,6 @@ export default function SmallMapComponent() {
     try {
       const response = await axios.get(`${server_debug}/parkingspot/${selectedSpot.spot_name}`);
       if (response.status === 200) {
-        console.log(response.data)
         setData(response.data);
       }
     } catch (error) {
