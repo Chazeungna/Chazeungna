@@ -8,6 +8,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import selectedPin from '../../recoil/selectedPin';
 import selectedPark from '../../recoil/selectedPark';
 import { server_debug } from '../../api';
+import parkingData from '../../recoil/data';
 import axios from 'axios';
 interface Parking { 
     parking_name: string;
@@ -40,7 +41,7 @@ function ParkingInfo() {
         }
       };
     useEffect(()=>{fetchSpotList();fetchSpotAverage()},[])
-    const [data, setData] = useState<Parking[]|null>(null)
+    const [data, setData] = useRecoilState<Parking[] | null>(parkingData)
     const navigate = useNavigate();
     const [average,setAverage] = useState(0)
     const selectedSpot= useRecoilValue(selectedPin) 

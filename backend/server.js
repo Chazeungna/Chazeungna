@@ -108,7 +108,8 @@ app.get("/filterinfo/info?", async (req, res) => {
   const max = req.query.max;
   const ev = req.query.ev;
   console.log(day, distance, min, max, ev);
-  const query = `select *
+  const query = `select parking_name, latitude, longitude,distance,
+  ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) as charge
   from spot_parking
   where distance <= ${distance} and ${
     day == 0 ? `weekday_oper = 1` : `(saturday_oper = 1 or holiday_oper = 1)`
