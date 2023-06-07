@@ -21,7 +21,6 @@ const FilteringBox = (props:any) => {
     try {
       const response = await axios.get(`${server_debug}/filterinfo`);
       if (response.status === 200) {
-        console.log(response.data);
         setMIN(Number(response.data[0].min));
         setMAX(Number(response.data[0].max));
       }
@@ -33,7 +32,6 @@ const FilteringBox = (props:any) => {
     try {
       const response = await axios.get(`${server_debug}/filterinfo/info?day=${day}&distance=${distance}&min=${min}&max=${max}&ev=${ev}`);
       if (response.status === 200) {
-        console.log(response.data);
         setData(response.data)
 
       }

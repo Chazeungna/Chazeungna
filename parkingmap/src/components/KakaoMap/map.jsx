@@ -41,7 +41,6 @@ export default function MapComponent() {
         window.kakao.maps.event.addListener(marker, "click", () => {
           setSelectedSpot(el);
           navigate('/info')
-          console.log(el)
         });
         const content = `<div style="background: #fff; padding: 10px; font-size:15px; text-align:center; width:130px;
         ">

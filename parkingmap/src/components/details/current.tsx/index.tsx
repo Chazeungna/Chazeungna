@@ -17,7 +17,6 @@ const CurrentInfo = (props: {address : string})=>{
         const addressInfo =props.address.split(' ')[1]
         setDate("데이터를 불러오는 중입니다.")
         setData(undefined)
-        console.log(addressInfo)
         try {
           const response = await axios.get(`${server_debug}/currentinfo/${addressInfo}/${name}`);
           if (response.status === 200) {
