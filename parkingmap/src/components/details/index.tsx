@@ -25,6 +25,14 @@ function Detail() {
     const [current, setCurrent] = useState(false);
     const [data,setData] = useState<DetailType>()
     const [selectedParking, setSelectedParking] = useRecoilState(selectedPark);
+    const handleCopyClipBoard = async (text: string) => {
+        try {
+          await navigator.clipboard.writeText(text);
+          alert('클립보드에 링크가 복사되었습니다.');
+        } catch (e) {
+          alert('복사에 실패하였습니다');
+        }
+    };
     const fetchDetail = async () => {
         try {
           const response = await axios.get(`${server_debug}/detail/${selectedParking}`);
@@ -45,17 +53,18 @@ function Detail() {
                 </div>
                 <div style={{fontSize:'15px', fontWeight:'400', margin:20}} onClick={()=>setSelectedParking(null)}>닫기</div>
             </div>
-            <div className={styles.keywordbox}>
-                <div className={styles.keywordCircle}>{data.oper_status}</div>
-                <div className={styles.keywordCircle}>{data.free === 1 ? '무료' : '유료'} </div>
-                {data.ev_charger_ === 1 ? <div className={styles.keywordCircle}>EV</div> : null}      
+            <div style={{display:'flex'}}>
+                <div className={styles.keywordbox}>
+                    <div className={styles.keywordCircle}>{data.oper_status}</div>
+                    <div className={styles.keywordCircle}>{data.free === 1 ? '무료' : '유료'} </div>
+                    {data.ev_charger_ === 1 ? <div className={styles.keywordCircle}>EV</div> : null}    
+                </div>
+                <div style = {{fontSize:14,fontWeight:400,color:'#717171', width:60, marginRight:5}}>{Math.ceil(data.distance)} m</div>  
             </div>
-
             <div className={styles.addressContainer}>
-                    <img src="assets/icons/location.png" width="16px" height="16px" style={{marginLeft:20}}></img>
-                    <div style = {{fontSize:13,fontWeight:400,maxWidth:'50vw'}}>{data.parking_address}</div>
-                    <img src="assets/icons/cards.png" width="16px" height="16px"></img>
-                    <div style = {{fontSize:13,fontWeight:400,color:'#717171'}}> {Math.ceil(data.distance)} m</div>
+                    <img src="assets/icons/location.png" width="16px" height="16px" style={{margin:"0 10px 0 25px"}}/>
+                    <div style = {{fontSize:13,fontWeight:400}}>{data.parking_address}</div>
+                    <img src="assets/icons/cards.png" width="16px" height="16px" style={{margin:"0px 10px"}} onClick={()=>handleCopyClipBoard(data.parking_address)}/>
             </div>
             <div className={styles.latestContainer}>
                 <img src="assets/icons/car.png" width="16px" height="16px" style={{marginLeft:20}}></img>
