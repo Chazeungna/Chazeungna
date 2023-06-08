@@ -82,14 +82,14 @@ function Detail() {
             <div className={styles.line}></div>
             { manage ? 
             <div className={styles.manageinfobox}>
-                <span style={{fontSize:14,fontWeight:400,color:'black'}}>- 전화번호 : {data.phone_no}</span>
-                <span style={{fontSize:14,fontWeight:400,color:'black'}}>- {data.weekday_oper_info}</span>
-                <span style={{fontSize:14,fontWeight:400,color:'black'}}>- {data.saturday_oper_info}</span>
-                <span style={{fontSize:14,fontWeight:400,color:'black'}}>- {data.holiday_oper_info}</span>
-                <span style={{fontSize:14,fontWeight:400,color:'black'}}>- 전기차 충전소:  {data.ev_charger_ === 1 ? '보유':'미보유'}</span>
-            </div> :   <div className={styles.manageinfobox} style={{marginTop:20}}>
-                <span style={{fontSize:15,fontWeight:500,color:'black'}}>- 기본 요금 : {data.basic_charge}</span>
-                <span style={{fontSize:15,fontWeight:500,color:'black'}}>- 추가 요금 : {data.additional_charge !== null ?data.additional_charge : "없음"}</span>            
+                <div className={styles.text}>- 전화번호 : {data.phone_no}</div>
+                <div  className={styles.text}>- {data.weekday_oper_info}</div >
+                <div  className={styles.text}>- {data.saturday_oper_info}</div >
+                <div className={styles.text}>- {data.holiday_oper_info}</div >
+                <div  className={styles.text}>- 전기차 충전소:  {data.ev_charger_ === 1 ? '보유':'미보유'}</div>
+            </div> :   <div className={styles.manageinfobox2} style={{marginTop:20}}>
+                <div  style={{fontSize:15,fontWeight:500,color:'black'}}>- 기본 요금 : {data.basic_charge}</div>
+                <div  style={{fontSize:15,fontWeight:500,color:'black'}}>- 추가 요금 : {data.additional_charge !== null ?data.additional_charge : "없음"}</div>            
             </div>
             }
             

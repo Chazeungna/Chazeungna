@@ -38,7 +38,7 @@ function Main() {
                 서울시 주차 정보를 확인해요!
                 </div>
                 <div className={styles.imageContainer}>
-                    <img src='/assets/icons/search.png' className={styles.image}/>
+                    {/* <img src='/assets/icons/search.png' className={styles.image}/> */}
                     {data!==undefined && <select className={styles.search} onChange={(e:any)=>{setSelectedSpot(data[e.target.value]);navigate('/info')}}>
                         <option value="" disabled selected>장소를 선택하세요.</option>
                         {data.map((key:Data, index:number)=><option key={index} value={index} >{key.spot_name}</option>)}
