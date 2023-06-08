@@ -29,8 +29,14 @@ const FilteringBox = (props:any) => {
     }
   };
   const fetchFilteringResult = async (day: number, ev:boolean, min:number, max:number,distance: number) => {
+    let EV;
+    if(ev){
+         EV = 1;
+    } else {
+         EV = 0;
+    }
     try {
-      const response = await axios.get(`${server_debug}/filterinfo/info?day=${day}&distance=${distance}&min=${min}&max=${max}&ev=${ev}`);
+      const response = await axios.get(`${server_debug}/filterinfo/info?day=${day}&distance=${distance}&min=${min}&max=${max}&ev=${EV}`);
       if (response.status === 200) {
         setData(response.data)
 

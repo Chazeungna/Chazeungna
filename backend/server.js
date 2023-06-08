@@ -3,12 +3,11 @@ const app = express();
 
 const port = process.env.PORT || 8080;
 const cors = require("cors");
-let corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+// let corsOptions = {
+//   origin: "https://chazeungna.pages.dev",
+//   credentials: true,
+// };
+app.use(cors());
 
 require("dotenv").config();
 const mysql = require("mysql2");
@@ -101,23 +100,30 @@ app.get("/filterinfo", async (req, res) => {
     res.status(400).json({ text: "ErrorCode:400, 잘못된 요청입니다." });
   }
 });
-app.get("/filterinfo/info?", async (req, res) => {
-  const day = req.params.day;
+app.get("/filterinfo/info", async (req, res) => {
+  const day = req.query.day;
   const distance = req.query.distance;
   const min = req.query.min;
   const max = req.query.max;
   const ev = req.query.ev;
-  console.log(day, distance, min, max, ev);
-  const query = `select parking_name, latitude, longitude,distance,
-  ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) as charge
-  from spot_parking
-  where distance <= ${distance} and ${
-    day == 0 ? `weekday_oper = 1` : `(saturday_oper = 1 or holiday_oper = 1)`
-  } and ${
-    ev == 1 ? "parking_name in (select parking_name from ev_charger) and" : ""
-  }ifnull(basic_charge + ceil((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) between ${min} and ${max} and (free = 0 or free = 1); `;
+
+  // 변경: day와 ev를 정수로 변환하여 비교
+  const query = `SELECT parking_name, latitude, longitude, distance,
+    IFNULL(basic_charge + CEIL((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) AS charge
+    FROM spot_parking
+    WHERE distance <= ${distance} AND ${
+    parseInt(day) === 0
+      ? `weekday_oper = 1`
+      : `(saturday_oper = 1 OR holiday_oper = 1)`
+  } AND ${
+    parseInt(ev) === 1
+      ? `parking_name IN (SELECT parking_name FROM ev_charger) AND`
+      : ``
+  } IFNULL(basic_charge + CEIL((60 - basic_time) / additional_unit_time) * additional_charge, basic_charge) BETWEEN ${min} AND ${max} AND (free = 0 OR free = 1);`;
+
   try {
     const result = await connection.promise().query(query);
+    console.log(query);
     res.json(result[0]);
   } catch (err) {
     console.error(err);
