@@ -50,8 +50,8 @@ export default function MapComponent() {
         var infowindow = new window.kakao.maps.InfoWindow({
           content: content // 인포윈도우에 표시할 내용
       });
-        window.kakao.maps.event.addListener(marker, 'touchstart', makeOverListener(map, marker, infowindow));
-        window.kakao.maps.event.addListener(marker, 'touchend', makeOutListener(infowindow));
+        window.kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        window.kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
       });
     }
   };
